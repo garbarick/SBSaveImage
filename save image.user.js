@@ -523,7 +523,7 @@ const sbButton =
         return 32
     },
 
-    setButtonSize: function(button, size, bgSize, fSize)
+    setButtonSize: function(button, size, bgSize)
     {
         button.style.height = size + 'px'
         if (button.box)
@@ -531,9 +531,8 @@ const sbButton =
             button.style.width = size + 'px'
         }
         button.style.backgroundSize = bgSize + 'px ' + bgSize + 'px'
-        button.style.fontSize = fSize + 'px'
         const subMenu = button.subMenu || []
-        subMenu.forEach(e => this.setButtonSize(e, size, bgSize, fSize))
+        subMenu.forEach(e => this.setButtonSize(e, size, bgSize))
     },
 
     setButtonPlace: function(button, size)
@@ -546,6 +545,13 @@ const sbButton =
         subMenu.forEach(e => this.setButtonPlace(e, size))
     },
 
+    setFontSize: function(button, size)
+    {
+        button.style.fontSize = size + 'px'
+        const subMenu = button.subMenu || []
+        subMenu.forEach(e => this.setFontSize(e, size))
+    },
+
     initButtonsSize : function()
     {
         const size = this.getButtonsSize()
@@ -553,13 +559,16 @@ const sbButton =
         const fSize = Math.floor(size / 1.5)
         const sSize = Math.floor(size / 2)
 
-        this.setButtonSize(this.save, size, bgSize, fSize)
-        this.setButtonSize(this.reload, size, bgSize, fSize)
-        this.setButtonSize(this.status, size, bgSize, fSize)
+        this.setButtonSize(this.save, size, bgSize)
+        this.setButtonSize(this.reload, size, bgSize)
+        this.setButtonSize(this.status, size, bgSize)
         this.setButtonPlace(this.status, size)
-        this.setButtonSize(this.menu, size, bgSize, fSize)
+        this.setFontSize(this.status, fSize)
+        this.setButtonSize(this.menu, size, bgSize)
         this.setButtonPlace(this.menu, size)
-        this.setButtonPlace(this.loads, size, sSize)
+        this.setFontSize(this.menu, fSize)
+        this.setButtonPlace(this.loads, size)
+        this.setFontSize(this.loads, sSize)
 
         const buttons = [
             ...document.querySelectorAll('div.post_content_expand'),
