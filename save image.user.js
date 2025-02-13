@@ -141,6 +141,7 @@ const sbButton =
     {
         this.loads = this.getButton('sb_loads', 'loads', '', ['sb_base', 'sb_menu_item'])
         this.loads.column = 1
+        this.loads.style.display = 'unset';
     },
 
     findImages : function()
