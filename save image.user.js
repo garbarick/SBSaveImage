@@ -523,7 +523,7 @@ const sbButton =
         return 32
     },
 
-    setButtonSize: function(button, size, bgSize)
+    setButtonSize: function(button, size, bgSize, fSize)
     {
         button.style.height = size + 'px'
         if (button.box)
@@ -531,8 +531,9 @@ const sbButton =
             button.style.width = size + 'px'
         }
         button.style.backgroundSize = bgSize + 'px ' + bgSize + 'px'
+        button.style.fontSize = fSize + 'px'
         const subMenu = button.subMenu || []
-        subMenu.forEach(e => this.setButtonSize(e, size, bgSize))
+        subMenu.forEach(e => this.setButtonSize(e, size, bgSize, fSize))
     },
 
     setButtonPlace: function(button, size)
@@ -552,19 +553,13 @@ const sbButton =
         const fSize = Math.floor(size / 1.5)
         const sSize = Math.floor(size / 2)
 
-        this.setButtonSize(this.save, size, bgSize)
-        this.setButtonSize(this.reload, size, bgSize)
-
-        this.setButtonSize(this.status, size, bgSize)
+        this.setButtonSize(this.save, size, bgSize, fSize)
+        this.setButtonSize(this.reload, size, bgSize, fSize)
+        this.setButtonSize(this.status, size, bgSize, fSize)
         this.setButtonPlace(this.status, size)
-        this.status.style.fontSize = fSize + 'px'
-
-        this.setButtonSize(this.menu, size, bgSize)
+        this.setButtonSize(this.menu, size, bgSize, fSize)
         this.setButtonPlace(this.menu, size)
-        this.menu.style.fontSize = fSize + 'px'
-
-        this.setButtonPlace(this.loads, size)
-        this.loads.style.fontSize = sSize + 'px'
+        this.setButtonPlace(this.loads, size, sSize)
 
         const buttons = [
             ...document.querySelectorAll('div.post_content_expand'),
