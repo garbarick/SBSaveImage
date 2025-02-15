@@ -111,15 +111,15 @@ const sbButton =
         this.menu.row = 1
         this.menu.box = true
         var subButton = this.getButton('sb_menu_find_images', '', 'find images', ['sb_base', 'sb_menu_item'])
-        this.addSubMenu(this.menu, subButton, () => this.findImages())
+        this.addSubMenu(this.menu, subButton, (event) => this.findImages(event))
         subButton = this.getButton('sb_menu_stop_unload', '', 'stop unload', ['sb_base', 'sb_menu_item'])
-        this.addSubMenu(this.menu, subButton, () => this.stopUnload())
+        this.addSubMenu(this.menu, subButton, (event) => this.stopUnload(event))
         subButton = this.getButton('sb_menu_clear_urls', '', 'clear urls', ['sb_base', 'sb_menu_item'])
-        this.addSubMenu(this.menu, subButton, () => this.clearUrls())
+        this.addSubMenu(this.menu, subButton, (event) => this.clearUrls(event))
         subButton = this.getButton('sb_menu_buttons_size', '', 'buttons size', ['sb_base', 'sb_menu_item'])
-        this.addSubMenu(this.menu, subButton, () => this.buttonsSize())
+        this.addSubMenu(this.menu, subButton, (event) => this.buttonsSize(event))
         subButton = this.getButton('sb_menu_buttons_size_for_host', '', 'buttons size for host', ['sb_base', 'sb_menu_item'])
-        this.addSubMenu(this.menu, subButton, () => this.buttonsSizeForHost())
+        this.addSubMenu(this.menu, subButton, (event) => this.buttonsSizeForHost(event))
         this.menu.addEventListener('click', () => this.menu.subMenu.forEach(e => e.style.display = e.style.display == '' ? 'none' : ''))
     },
 
@@ -129,8 +129,8 @@ const sbButton =
         subButton.style.display = 'none'
         subButton.row = subMenu.length + 1 + button.row
         subButton.column = 1
-        subButton.addEventListener('click', () => {
-            try {subFunction()} catch (e) {console.log(e.stack)}
+        subButton.addEventListener('click', (event) => {
+            try {subFunction(event)} catch (e) {console.log(e.stack)}
             button.click()
         })
         subMenu.push(subButton)
@@ -455,7 +455,7 @@ const sbButton =
         var urls = []
         for (var url of this.urls)
         {
-            url.load.abort()
+            try {url.load.abort() } catch (e) {}
             urls.push(url.src)
         }
         GM_setValue('sbButton.links', JSON.stringify(urls))
