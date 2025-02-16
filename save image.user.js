@@ -175,6 +175,11 @@ const sbButton =
             this.initImage(obj)
             count++
         }
+        for (obj of document.querySelectorAll('img.preview:not(.sb_for_open_background)'))
+        {
+            this.initForOpenBackground(obj)
+            count++
+        }
         /*danbooru.donmai.us*/
         for (obj of document.querySelectorAll('a.image-view-original-link:not(.sb_image)'))
         {
@@ -288,7 +293,7 @@ const sbButton =
     failedImage : function(url, error, detail)
     {
         console.log('Downloading failed!\n' + url.name + '\n' + url.src + '\nerror:' + JSON.stringify(error) + '\ndetail:' + detail)
-        if ('USER_CANCELED' == error.details.current)
+        if (error.details && 'USER_CANCELED' == error.details.current)
         {
             var sub = url.sub == null ? 1 : url.sub + 1
             this.excludeLoadedImage(url)
